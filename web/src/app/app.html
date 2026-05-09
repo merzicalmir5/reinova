@@ -1,0 +1,39 @@
+<div class="app-shell">
+  <div class="app-lang" [class.app-lang--open]="menuOpen()">
+    <button
+      type="button"
+      class="app-lang__trigger"
+      (click)="toggleLangMenu()"
+      [attr.aria-expanded]="menuOpen()"
+      [attr.aria-label]="i18n.translate('lang.open')"
+    >
+    
+      <span class="app-lang__code">{{ activeCode() }}</span>
+    </button>
+    @if (menuOpen()) {
+      <div class="app-lang__panel" role="menu">
+        <button type="button" class="app-lang__item" role="menuitem" (click)="pickLang('bs')">
+          <span class="app-lang__flag" aria-hidden="true">🇧🇦</span>
+          <span>{{ i18n.translate('lang.bs') }}</span>
+        </button>
+        <button type="button" class="app-lang__item" role="menuitem" (click)="pickLang('en')">
+          <span class="app-lang__flag" aria-hidden="true">🇬🇧</span>
+          <span>{{ i18n.translate('lang.en') }}</span>
+        </button>
+        <button type="button" class="app-lang__item" role="menuitem" (click)="pickLang('de')">
+          <span class="app-lang__flag" aria-hidden="true">🇩🇪</span>
+          <span>{{ i18n.translate('lang.de') }}</span>
+        </button>
+        <button type="button" class="app-lang__item" role="menuitem" (click)="pickLang('it')">
+          <span class="app-lang__flag" aria-hidden="true">🇮🇹</span>
+          <span>{{ i18n.translate('lang.it') }}</span>
+        </button>
+        <button type="button" class="app-lang__item" role="menuitem" (click)="pickLang('es')">
+          <span class="app-lang__flag" aria-hidden="true">🇪🇸</span>
+          <span>{{ i18n.translate('lang.es') }}</span>
+        </button>
+      </div>
+    }
+  </div>
+  <router-outlet />
+</div>

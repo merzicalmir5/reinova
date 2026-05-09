@@ -1,0 +1,25 @@
+<div class="login-page">
+  <header class="login-page__header">
+    <mat-toolbar class="login-page__toolbar" role="banner">
+      <div class="login-page__toolbar-inner">
+        <a routerLink="/" class="login-page__brand">
+          <img class="login-page__brand-logo" src="/assets/logo-removebg-preview.png" [alt]="i18n.translate('brand.alt')" />
+        </a>
+      </div>
+    </mat-toolbar>
+  </header>
+
+  <main class="login-page__main">
+    <div class="login-page__surface">
+      <div class="login-page__card">
+        <h1 class="login-page__title">{{ i18n.translate('signup.checkEmailTitle') }}</h1>
+        <p class="signup-check-email__lead">{{ i18n.translate('signup.checkEmailLead') }}</p>
+        @if (email) {
+          <p class="signup-check-email__email">{{ email }}</p>
+        }
+        <p class="signup-check-email__hint">{{ i18n.translate('signup.checkEmailHint') }}</p>
+        <a mat-stroked-button routerLink="/login" class="login-page__submit">{{ i18n.translate('signup.goToLogin') }}</a>
+      </div>
+    </div>
+  </main>
+</div>
