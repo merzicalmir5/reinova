@@ -1,0 +1,74 @@
+<div
+  class="dashboard"
+  [class.dashboard--dark]="darkMode()"
+  [class.dashboard--light]="!darkMode()"
+>
+  <div class="dashboard__theme-corner">
+    <button
+      mat-stroked-button
+      type="button"
+      class="dashboard__theme-corner-btn"
+      (click)="toggleTheme()"
+      [attr.aria-label]="
+        darkMode() ? i18n.translate('dashboard.themeUseLight') : i18n.translate('dashboard.themeUseDark')
+      "
+      [attr.title]="
+        darkMode() ? i18n.translate('dashboard.themeUseLight') : i18n.translate('dashboard.themeUseDark')
+      "
+      [attr.aria-pressed]="darkMode()"
+    >
+      <span class="dashboard__theme-corner-icon" aria-hidden="true">{{ darkMode() ? '☀️' : '🌙' }}</span>
+    </button>
+  </div>
+
+  <aside class="dashboard__sidebar" aria-label="Dashboard">
+    <div class="dashboard__brand">
+      <a
+        routerLink="/dashboard"
+        class="dashboard__brand-link dashboard__brand-link--wordmark"
+        [attr.aria-label]="i18n.translate('brand.alt')"
+      >
+        
+        <span class="dashboard__logo-text" aria-hidden="true">
+          <span class="dashboard__logo-accent">R</span><span class="dashboard__logo-rest">einova</span>
+        </span>
+      </a>
+      <div class="dashboard__signed-in">
+        <span class="dashboard__signed-in-label">{{ i18n.translate('dashboard.signedInLabel') }}</span>
+        <span class="dashboard__signed-in-name">{{ auth.displayName() }}</span>
+      </div>
+    </div>
+    <nav class="dashboard__nav">
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="dashboard__nav-link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="dashboard__nav-link"
+        >{{ i18n.translate('dashboard.nav.overview') }}</a
+      >
+      <a
+        routerLink="/dashboard/video-requests"
+        routerLinkActive="dashboard__nav-link--active"
+        class="dashboard__nav-link"
+        >{{ i18n.translate('dashboard.nav.videoRequests') }}</a
+      >
+      <a
+        routerLink="/dashboard/replicas"
+        routerLinkActive="dashboard__nav-link--active"
+        class="dashboard__nav-link"
+        >{{ i18n.translate('dashboard.nav.replicas') }}</a
+      >
+    </nav>
+    <div class="dashboard__sidebar-footer">
+      <button mat-stroked-button type="button" class="dashboard__logout" (click)="logout()">
+        {{ i18n.translate('dashboard.logout') }}
+      </button>
+    </div>
+  </aside>
+  <main class="dashboard__main">
+    @if (pageTitleKey(); as tk) {
+      <h1 class="dashboard__page-title">{{ i18n.translate(tk) }}</h1>
+    }
+    <router-outlet />
+  </main>
+</div>

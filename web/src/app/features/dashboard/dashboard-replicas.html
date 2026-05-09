@@ -1,0 +1,116 @@
+<div class="dash-replicas">
+  <mat-card class="dash-replicas__panel" appearance="outlined">
+    <mat-card-content>
+      <p class="dash-replicas__hint">{{ i18n.translate('dashboard.replicas.hint') }}</p>
+
+      @if (error()) {
+        <p class="dash-replicas__banner dash-replicas__banner--error" role="alert">{{ error() }}</p>
+      }
+
+      @if (loading()) {
+        <div class="dash-replicas__loading">
+          <mat-progress-spinner diameter="36" mode="indeterminate" />
+        </div>
+      } @else if (!error()) {
+        @if (total() === 0) {
+          <p class="dash-replicas__empty">{{ i18n.translate('dashboard.replicas.empty') }}</p>
+        } @else {
+          <div class="dash-replicas__grid">
+            @for (row of rows(); track row.replicaId) {
+              <article class="dash-replicas__card">
+                @if (row.thumbnailVideoUrl) {
+                  <div
+                    class="dash-replicas__media"
+                    (mouseenter)="hoverPlay(vid)"
+                    (mouseleave)="hoverPause(vid)"
+                  >
+                    <video
+                      #vid
+                      class="dash-replicas__video"
+                      [src]="row.thumbnailVideoUrl"
+                      playsinline
+                      muted
+                      loop
+                      preload="metadata"
+                      [attr.aria-label]="
+                        row.replicaName?.trim()
+                          ? row.replicaName!
+                          : i18n.translate('dashboard.replicas.videoPreviewAria')
+                      "
+                    ></video>
+                    @if (row.replicaType === 'system') {
+                      <span class="dash-replicas__badge-pro">PRO</span>
+                    }
+                    <div class="dash-replicas__media-gradient" aria-hidden="true"></div>
+                    <div class="dash-replicas__media-footer">
+                      @if (row.modelName?.trim()) {
+                        <span class="dash-replicas__chip dash-replicas__chip--model">{{ row.modelName }}</span>
+                      }
+                      <button
+                        type="button"
+                        class="dash-replicas__chip dash-replicas__chip--id"
+                        (click)="copyReplicaId(row.replicaId); $event.stopPropagation()"
+                        [attr.title]="i18n.translate('dashboard.replicas.copyHint')"
+                      >
+                        ID: {{ row.replicaId }}
+                      </button>
+                    </div>
+                  </div>
+                } @else {
+                  <div class="dash-replicas__media">
+                    <div class="dash-replicas__media-placeholder" aria-hidden="true"></div>
+                    @if (row.replicaType === 'system') {
+                      <span class="dash-replicas__badge-pro">PRO</span>
+                    }
+                    <div class="dash-replicas__media-gradient" aria-hidden="true"></div>
+                    <div class="dash-replicas__media-footer">
+                      @if (row.modelName?.trim()) {
+                        <span class="dash-replicas__chip dash-replicas__chip--model">{{ row.modelName }}</span>
+                      }
+                      <button
+                        type="button"
+                        class="dash-replicas__chip dash-replicas__chip--id"
+                        (click)="copyReplicaId(row.replicaId); $event.stopPropagation()"
+                        [attr.title]="i18n.translate('dashboard.replicas.copyHint')"
+                      >
+                        ID: {{ row.replicaId }}
+                      </button>
+                    </div>
+                  </div>
+                }
+                <div class="dash-replicas__card-body">
+                  <h3 class="dash-replicas__card-title">
+                    {{ row.replicaName?.trim() ? row.replicaName : row.replicaId }}
+                  </h3>
+                  <div class="dash-replicas__card-meta">
+                    @if (row.status?.trim()) {
+                      <span
+                        class="dash-replicas__card-status"
+                        [class.dash-replicas__card-status--ready]="isReplicaReady(row.status)"
+                        >{{ row.status }}</span
+                      >
+                    }
+                    @if (copiedId() === row.replicaId) {
+                      <span class="dash-replicas__copied" aria-live="polite">{{
+                        i18n.translate('dashboard.replicas.copied')
+                      }}</span>
+                    }
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+
+          <mat-paginator
+            [length]="total()"
+            [pageIndex]="pageIndex()"
+            [pageSize]="pageSize()"
+            [pageSizeOptions]="[5, 10, 25, 50]"
+            showFirstLastButtons
+            (page)="onPage($event)"
+          />
+        }
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

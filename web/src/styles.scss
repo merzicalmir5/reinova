@@ -1,0 +1,68 @@
+/* App-wide font; Material theme also uses Montserrat via material-theme.scss */
+:root {
+  /* Jezik + tema u uglu: isti padding i zaobljenje */
+  --reinova-corner-chip-padding: 0.35rem 0.55rem 0.35rem 0.45rem;
+  --reinova-corner-chip-radius: 0.5rem;
+}
+
+html,
+body {
+  font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Neutral outlines / labels on all Material outlined fields — no primary blue behind placeholder */
+$field-outline: #94a3b8;
+$field-outline-focus: #64748b;
+$field-label: #475569;
+$field-text: #334155;
+
+.mat-mdc-text-field-wrapper {
+  --mat-form-field-hover-state-layer-opacity: 0;
+  --mat-form-field-focus-state-layer-opacity: 0;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-text-field-wrapper {
+  --mat-form-field-hover-state-layer-opacity: 0;
+}
+
+.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+.mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: $field-outline !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing,
+.mat-mdc-form-field.mat-mdc-form-field.mat-focused .mdc-notched-outline .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-mdc-form-field.mat-focused .mdc-notched-outline .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-mdc-form-field.mat-focused .mdc-notched-outline .mdc-notched-outline__trailing {
+  border-color: $field-outline-focus !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-floating-label,
+.mat-mdc-form-field.mat-focused .mdc-floating-label--float-above,
+.mdc-text-field--focused .mat-mdc-floating-label {
+  color: $field-label !important;
+}
+
+.mat-mdc-form-field .mat-mdc-input-element,
+.mat-mdc-form-field .mat-mdc-select-value {
+  caret-color: $field-text;
+  color: $field-text;
+}
+
+.mat-mdc-form-field:not(.mat-focused) .mat-mdc-floating-label {
+  color: #64748b !important;
+}
+
+/* Browser autofill — remove blue/yellow tint behind text */
+input.mat-mdc-input-element:-webkit-autofill,
+input.mat-mdc-input-element:-webkit-autofill:hover,
+input.mat-mdc-input-element:-webkit-autofill:focus,
+textarea.mat-mdc-input-element:-webkit-autofill,
+textarea.mat-mdc-input-element:-webkit-autofill:focus {
+  -webkit-text-fill-color: #{$field-text} !important;
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+  transition: background-color 99999s ease-out 0s;
+}

@@ -1,0 +1,339 @@
+<div class="home-page">
+  <header class="home-page__header">
+    <mat-toolbar
+      class="home-page__toolbar home-page__toolbar--dark"
+      [class.home-page__toolbar--scrolled]="navbarScrolled()"
+      role="banner"
+    >
+      <div class="home-page__toolbar-inner">
+        <a
+          routerLink="/"
+          class="home-page__brand home-page__brand--wordmark"
+          [attr.aria-label]="i18n.translate('brand.alt')"
+          (click)="onLogoClick($event)"
+        >
+         
+          <span class="home-page__brand-name" aria-hidden="true">
+            <span class="home-page__brand-accent">R</span><span class="home-page__brand-rest">einova</span>
+          </span>
+        </a>
+        <nav class="home-page__nav" [attr.aria-label]="i18n.translate('nav.ariaMain')">
+          <div class="home-page__nav-desktop">
+            <div class="home-page__nav-links">
+              <a
+                routerLink="/"
+                routerLinkActive="home-page__nav-link--active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="home-page__nav-link"
+                >{{ i18n.translate('nav.home') }}</a
+              >
+              <a href="#prednosti" class="home-page__nav-link">{{ i18n.translate('nav.why') }}</a>
+              <a href="#demo" class="home-page__nav-link">{{ i18n.translate('nav.how') }}</a>
+              <a href="#sta-dobijas" class="home-page__nav-link">{{ i18n.translate('nav.what') }}</a>
+              <a href="#kontakt" class="home-page__nav-link">{{ i18n.translate('nav.contact') }}</a>
+            </div>
+            <span class="home-page__nav-sep" aria-hidden="true"></span>
+            <div class="home-page__nav-auth">
+              <a mat-stroked-button routerLink="/login" class="home-page__nav-auth-btn home-page__nav-auth-link">{{
+                i18n.translate('nav.login')
+              }}</a>
+              <a mat-stroked-button routerLink="/register" class="home-page__nav-auth-btn home-page__nav-auth-link">
+                {{ i18n.translate('nav.register') }}
+              </a>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="home-page__nav-toggle"
+            (click)="toggleMobileNav()"
+            [attr.aria-expanded]="mobileNavOpen()"
+            [attr.aria-label]="
+              mobileNavOpen() ? i18n.translate('nav.menuCloseAria') : i18n.translate('nav.menuOpenAria')
+            "
+            aria-controls="home-mobile-nav"
+          >
+            <span class="home-page__nav-toggle-bar" aria-hidden="true"></span>
+            <span class="home-page__nav-toggle-bar" aria-hidden="true"></span>
+            <span class="home-page__nav-toggle-bar" aria-hidden="true"></span>
+          </button>
+        </nav>
+      </div>
+    </mat-toolbar>
+    @if (mobileNavOpen()) {
+      <div class="home-page__mobile-overlay" (click)="closeMobileNav()" role="presentation">
+        <nav
+          id="home-mobile-nav"
+          class="home-page__mobile-sheet home-page__mobile-sheet--dark"
+          (click)="$event.stopPropagation()"
+          role="dialog"
+          aria-modal="true"
+          [attr.aria-label]="i18n.translate('nav.ariaMain')"
+        >
+          <button
+            type="button"
+            class="home-page__mobile-close"
+            (click)="closeMobileNav()"
+            [attr.aria-label]="i18n.translate('nav.menuCloseAria')"
+          >
+            ×
+          </button>
+          <div class="home-page__mobile-links">
+            <a
+              routerLink="/"
+              routerLinkActive="home-page__nav-link--active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="home-page__nav-link home-page__nav-link--mobile"
+              (click)="closeMobileNav()"
+              >{{ i18n.translate('nav.home') }}</a
+            >
+            <a href="#prednosti" class="home-page__nav-link home-page__nav-link--mobile" (click)="closeMobileNav()">{{
+              i18n.translate('nav.why')
+            }}</a>
+            <a href="#demo" class="home-page__nav-link home-page__nav-link--mobile" (click)="closeMobileNav()">{{
+              i18n.translate('nav.how')
+            }}</a>
+            <a href="#sta-dobijas" class="home-page__nav-link home-page__nav-link--mobile" (click)="closeMobileNav()">{{
+              i18n.translate('nav.what')
+            }}</a>
+            <a href="#kontakt" class="home-page__nav-link home-page__nav-link--mobile" (click)="closeMobileNav()">{{
+              i18n.translate('nav.contact')
+            }}</a>
+          </div>
+          <div class="home-page__mobile-auth">
+            <a
+              mat-flat-button
+              routerLink="/register"
+              class="home-page__nav-generate home-page__nav-generate--mobile"
+              (click)="closeMobileNav()"
+              >{{ i18n.translate('nav.generateVideo') }}</a
+            >
+            <a
+              mat-stroked-button
+              routerLink="/login"
+              class="home-page__nav-auth-btn home-page__nav-auth-link"
+              (click)="closeMobileNav()"
+              >{{ i18n.translate('nav.login') }}</a
+            >
+            <a
+              mat-stroked-button
+              routerLink="/register"
+              class="home-page__nav-auth-btn home-page__nav-auth-link"
+              (click)="closeMobileNav()"
+            >
+              {{ i18n.translate('nav.register') }}
+            </a>
+          </div>
+        </nav>
+      </div>
+    }
+  </header>
+
+  <main class="home-page__main">
+    <section class="home-page__hero home-page__hero--cinematic" aria-labelledby="home-hero-heading">
+      <div class="home-page__hero-glow" aria-hidden="true"></div>
+      <div class="home-page__container">
+        <div class="home-page__hero-grid home-page__hero-grid--cinematic">
+          <div class="home-page__hero-copy">
+            <p class="home-page__lead home-page__lead--on-dark">{{ i18n.translate('hero.lead') }}</p>
+            <h1 id="home-hero-heading" class="home-page__headline home-page__headline--on-dark">
+              {{ i18n.translate('hero.headline') }}
+            </h1>
+            <p class="home-page__intro home-page__intro--on-dark">{{ i18n.translate('hero.intro') }}</p>
+            <div class="home-page__actions">
+              <a mat-flat-button routerLink="/register" class="home-page__nav-generate">{{ i18n.translate('nav.generateVideo') }}</a>
+              <a mat-stroked-button class="home-page__cta home-page__cta--hero-ghost" href="#demo">{{
+                i18n.translate('hero.demo')
+              }}</a>
+            </div>
+          </div>
+          <div class="home-page__hero-visual home-page__hero-visual--cinematic">
+            <picture>
+              <img
+                class="home-page__hero-img"
+                src="/assets/reinova-hero.png"
+                width="1600"
+                height="900"
+                [alt]="i18n.translate('hero.imageAlt')"
+              />
+            </picture>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="prednosti" class="home-page__panel home-page__panel--muted" aria-labelledby="prednosti-heading">
+      <div class="home-page__container">
+        <h2 id="prednosti-heading" class="home-page__section-title home-page__section-title--center">
+          {{ i18n.translate('prednosti.title') }}
+        </h2>
+        <p class="home-page__lede">
+          {{ i18n.translate('prednosti.lede') }}
+        </p>
+        <ul class="home-page__card-grid home-page__card-grid--3">
+          <li class="home-page__card">
+            <h3 class="home-page__card-title">{{ i18n.translate('prednosti.c1t') }}</h3>
+            <p class="home-page__card-text">
+              {{ i18n.translate('prednosti.c1p') }}
+            </p>
+          </li>
+          <li class="home-page__card">
+            <h3 class="home-page__card-title">{{ i18n.translate('prednosti.c2t') }}</h3>
+            <p class="home-page__card-text">
+              {{ i18n.translate('prednosti.c2p') }}
+            </p>
+          </li>
+          <li class="home-page__card">
+            <h3 class="home-page__card-title">{{ i18n.translate('prednosti.c3t') }}</h3>
+            <p class="home-page__card-text">
+              {{ i18n.translate('prednosti.c3p') }}
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="demo" aria-labelledby="demo-heading">
+      <div class="home-page__demo-intro">
+        <div class="home-page__container">
+          <div class="home-page__demo-split">
+            <div class="home-page__demo-copy">
+              <h2 id="demo-heading" class="home-page__demo-heading">{{ i18n.translate('demo.title') }}</h2>
+              <p class="home-page__demo-text">{{ i18n.translate('demo.prose') }}</p>
+              <p class="home-page__demo-schedule">
+                {{ i18n.translate('demo.scheduleHint') }}
+                <a class="home-page__demo-schedule-link" [href]="demoMailtoHref()">{{
+                  i18n.translate('demo.scheduleEmail')
+                }}</a>
+              </p>
+            </div>
+            <figure class="home-page__demo-figure">
+              <img
+                class="home-page__demo-img"
+                src="/assets/reinova-video.jpg"
+                width="1200"
+                height="1200"
+                [alt]="i18n.translate('demo.imageAlt')"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+          </div>
+        </div>
+      </div>
+      <div class="home-page__panel home-page__panel--muted">
+        <div class="home-page__container">
+          <ol class="home-page__steps">
+            <li>
+              <strong>{{ i18n.translate('demo.s1h') }}</strong>{{ i18n.translate('demo.s1t') }}
+            </li>
+            <li>
+              <strong>{{ i18n.translate('demo.s2h') }}</strong>{{ i18n.translate('demo.s2t') }}
+            </li>
+            <li>
+              <strong>{{ i18n.translate('demo.s3h') }}</strong>{{ i18n.translate('demo.s3t') }}
+            </li>
+            <li>
+              <strong>{{ i18n.translate('demo.s4h') }}</strong>{{ i18n.translate('demo.s4t') }}
+            </li>
+            <li>
+              <strong>{{ i18n.translate('demo.s5h') }}</strong>{{ i18n.translate('demo.s5t') }}
+            </li>
+          </ol>
+          <p class="home-page__note">
+            {{ i18n.translate('demo.note') }}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="sta-dobijas" class="home-page__about" aria-labelledby="sta-dobijas-heading">
+      <div class="home-page__container">
+        <h2 id="sta-dobijas-heading" class="home-page__section-title home-page__section-title--center">
+          {{ i18n.translate('dobijas.title') }}
+        </h2>
+        <p class="home-page__lede">
+          {{ i18n.translate('dobijas.lede') }}
+        </p>
+        <ul class="home-page__card-grid home-page__card-grid--2">
+          <li class="home-page__card home-page__card--accent">
+            <h3 class="home-page__card-title">{{ i18n.translate('dobijas.c1t') }}</h3>
+            <p class="home-page__card-text">{{ i18n.translate('dobijas.c1p') }}</p>
+          </li>
+          <li class="home-page__card home-page__card--accent">
+            <h3 class="home-page__card-title">{{ i18n.translate('dobijas.c2t') }}</h3>
+            <p class="home-page__card-text">{{ i18n.translate('dobijas.c2p') }}</p>
+          </li>
+          <li class="home-page__card home-page__card--accent">
+            <h3 class="home-page__card-title">{{ i18n.translate('dobijas.c3t') }}</h3>
+            <p class="home-page__card-text">{{ i18n.translate('dobijas.c3p') }}</p>
+          </li>
+          <li class="home-page__card home-page__card--accent">
+            <h3 class="home-page__card-title">{{ i18n.translate('dobijas.c4t') }}</h3>
+            <p class="home-page__card-text">{{ i18n.translate('dobijas.c4p') }}</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="plan" class="home-page__panel home-page__panel--muted" aria-labelledby="plan-heading">
+      <div class="home-page__container">
+        <h2 id="plan-heading" class="home-page__section-title home-page__section-title--center">
+          {{ i18n.translate('plan.title') }}
+        </h2>
+        <p class="home-page__lede">
+          {{ i18n.translate('plan.lede') }}
+        </p>
+        <ul class="home-page__timeline">
+          <li>
+            <strong>{{ i18n.translate('plan.t1h') }}</strong>{{ i18n.translate('plan.t1t') }}
+          </li>
+          <li>
+            <strong>{{ i18n.translate('plan.t2h') }}</strong>{{ i18n.translate('plan.t2t') }}
+          </li>
+          <li>
+            <strong>{{ i18n.translate('plan.t3h') }}</strong>{{ i18n.translate('plan.t3t') }}
+          </li>
+          <li>
+            <strong>{{ i18n.translate('plan.t4h') }}</strong>{{ i18n.translate('plan.t4t') }}
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="prvi-korak" class="home-page__about" aria-labelledby="prvi-korak-heading">
+      <div class="home-page__container">
+        <h2 id="prvi-korak-heading" class="home-page__subhead">{{ i18n.translate('prvi.title') }}</h2>
+        <p class="home-page__prose">
+          {{ i18n.translate('prvi.prose') }}
+        </p>
+      </div>
+    </section>
+
+    <section id="o-nama" class="home-page__panel home-page__panel--muted" aria-labelledby="o-nama-heading">
+      <div class="home-page__container">
+        <h2 id="o-nama-heading" class="home-page__subhead">{{ i18n.translate('onama.title') }}</h2>
+        <p class="home-page__prose home-page__prose--spaced">
+          {{ i18n.translate('onama.p1') }}
+        </p>
+        <p class="home-page__prose">
+          {{ i18n.translate('onama.p2') }}
+        </p>
+      </div>
+    </section>
+
+    <section id="kontakt" class="home-page__contact home-page__contact--band" aria-labelledby="kontakt-heading">
+      <div class="home-page__container">
+        <h2 id="kontakt-heading" class="home-page__subhead home-page__subhead--band">{{ i18n.translate('kontakt.title') }}</h2>
+        <p class="home-page__contact-text">
+          {{ i18n.translate('kontakt.p1') }}<strong>{{ i18n.translate('kontakt.p2') }}</strong>{{ i18n.translate('kontakt.p3') }}
+        </p>
+        <p class="home-page__contact-schedule">
+          {{ i18n.translate('demo.scheduleHint') }}
+          <a class="home-page__contact-schedule-link" [href]="demoMailtoHref()">{{
+            i18n.translate('demo.scheduleEmail')
+          }}</a>
+        </p>
+      </div>
+    </section>
+  </main>
+</div>
