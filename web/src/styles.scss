@@ -1,3 +1,5 @@
+@use './app/features/home/home-page.scss' as *;
+
 /* App-wide font; Material theme also uses Montserrat via material-theme.scss */
 :root {
   /* Jezik + tema u uglu: isti padding i zaobljenje */
