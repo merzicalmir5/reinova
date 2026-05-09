@@ -1,4 +1,4 @@
-@import '../login/login.scss';
+@use '../login/login.scss' as *;
 
 .verify-email__muted {
   margin: 0;
