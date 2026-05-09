@@ -1,0 +1,77 @@
+<div class="dash-requests">
+  <mat-card class="dash-requests__panel" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{ i18n.translate('dashboard.video.requestsTitle') }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="dash-requests__panel-lead">{{ i18n.translate('dashboard.video.requestsLead') }}</p>
+
+      @if (jobsError()) {
+        <p class="dash-requests__banner dash-requests__banner--error" role="alert">{{ jobsError() }}</p>
+      }
+
+      @if (jobsLoading()) {
+        <div class="dash-requests__table-loading">
+          <mat-progress-spinner diameter="36" mode="indeterminate" />
+        </div>
+      } @else if (!jobsError()) {
+        @if (jobsTotal() === 0) {
+          <p class="dash-requests__empty">{{ i18n.translate('dashboard.video.tableEmpty') }}</p>
+        } @else {
+          <div class="dash-requests__table-wrap">
+            <table mat-table [dataSource]="jobsRows()" class="dash-requests__table">
+              <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef>{{ i18n.translate('dashboard.video.colCreated') }}</th>
+                <td mat-cell *matCellDef="let row">{{ row.createdAt | date: 'short' }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="localId">
+                <th mat-header-cell *matHeaderCellDef>{{ i18n.translate('dashboard.video.colJobId') }}</th>
+                <td mat-cell *matCellDef="let row">
+                  <code class="dash-requests__mono">{{ row.id }}</code>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>{{ i18n.translate('dashboard.video.colStatus') }}</th>
+                <td mat-cell *matCellDef="let row">{{ row.tavusStatus }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="hostedUrl">
+                <th mat-header-cell *matHeaderCellDef>{{ i18n.translate('dashboard.video.colHostedUrl') }}</th>
+                <td mat-cell *matCellDef="let row">
+                  @if (row.hostedUrl) {
+                    <a [href]="row.hostedUrl" target="_blank" rel="noopener noreferrer" class="dash-requests__link">{{
+                      row.hostedUrl
+                    }}</a>
+                  } @else {
+                    <span class="dash-requests__dash">—</span>
+                  }
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="script">
+                <th mat-header-cell *matHeaderCellDef>{{ i18n.translate('dashboard.video.colScript') }}</th>
+                <td mat-cell *matCellDef="let row" class="dash-requests__cell-script">{{
+                  scriptPreview(row.script)
+                }}</td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </div>
+
+          <mat-paginator
+            [length]="jobsTotal()"
+            [pageIndex]="jobsPageIndex()"
+            [pageSize]="jobsPageSize()"
+            [pageSizeOptions]="[5, 10, 25]"
+            showFirstLastButtons
+            (page)="onJobsPage($event)"
+          />
+        }
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

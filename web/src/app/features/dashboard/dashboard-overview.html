@@ -1,0 +1,90 @@
+<div class="dash-overview">
+  <mat-card class="dash-overview__panel" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{ i18n.translate('dashboard.video.sectionTitle') }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="dash-overview__panel-lead">{{ i18n.translate('dashboard.video.sectionLead') }}</p>
+
+      <form class="dash-overview__form" [formGroup]="form" (ngSubmit)="submitVideoJob()">
+        @if (submitError()) {
+          <p class="dash-overview__banner dash-overview__banner--error" role="alert">{{ submitError() }}</p>
+        }
+
+        <mat-form-field class="dash-overview__field" appearance="outline" subscriptSizing="dynamic">
+          <mat-label>{{ i18n.translate('dashboard.video.replicaId') }}</mat-label>
+          <input matInput type="text" formControlName="replicaId" autocomplete="off" />
+          @if (form.controls.replicaId.invalid && form.controls.replicaId.touched) {
+            <mat-error>{{ i18n.translate('dashboard.video.replicaRequired') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="dash-overview__field" appearance="outline" subscriptSizing="dynamic">
+          <mat-label>{{ i18n.translate('dashboard.video.script') }}</mat-label>
+          <textarea matInput formControlName="script" rows="6"></textarea>
+          @if (form.controls.script.invalid && form.controls.script.touched) {
+            <mat-error>{{ i18n.translate('dashboard.video.scriptRequired') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="dash-overview__field" appearance="outline" subscriptSizing="dynamic">
+          <mat-label>{{ i18n.translate('dashboard.video.videoName') }}</mat-label>
+          <input matInput type="text" formControlName="videoName" autocomplete="off" />
+        </mat-form-field>
+
+        <mat-form-field class="dash-overview__field" appearance="outline" subscriptSizing="dynamic">
+          <mat-label>{{ i18n.translate('dashboard.video.callbackUrl') }}</mat-label>
+          <input matInput type="url" formControlName="callbackUrl" autocomplete="off" />
+        </mat-form-field>
+
+        <mat-form-field class="dash-overview__field" appearance="outline" subscriptSizing="dynamic">
+          <mat-label>{{ i18n.translate('dashboard.video.backgroundUrl') }}</mat-label>
+          <input matInput type="url" formControlName="backgroundUrl" autocomplete="off" />
+        </mat-form-field>
+
+        <label class="dash-overview__check">
+          <mat-checkbox formControlName="fast">{{ i18n.translate('dashboard.video.fast') }}</mat-checkbox>
+        </label>
+        <label class="dash-overview__check">
+          <mat-checkbox formControlName="transparentBackground">{{
+            i18n.translate('dashboard.video.transparentBackground')
+          }}</mat-checkbox>
+        </label>
+        <p class="dash-overview__hint">{{ i18n.translate('dashboard.video.transparentBackgroundHint') }}</p>
+
+        <div class="dash-overview__actions">
+          @if (submitting()) {
+            <mat-progress-spinner class="dash-overview__spinner" diameter="28" mode="indeterminate" />
+          }
+          <button mat-stroked-button type="submit" class="dash-overview__submit" [disabled]="submitting()">
+            {{
+              submitting()
+                ? i18n.translate('dashboard.video.submitting')
+                : i18n.translate('dashboard.video.submit')
+            }}
+          </button>
+        </div>
+      </form>
+
+      @if (lastJob(); as job) {
+        <section class="dash-overview__result" aria-live="polite">
+          <h2 class="dash-overview__result-title">{{ i18n.translate('dashboard.video.resultTitle') }}</h2>
+          <dl class="dash-overview__dl">
+            <dt>{{ i18n.translate('dashboard.video.resultJobId') }}</dt>
+            <dd><code>{{ job.id }}</code></dd>
+            <dt>{{ i18n.translate('dashboard.video.resultTavusId') }}</dt>
+            <dd><code>{{ job.tavusVideoId }}</code></dd>
+            <dt>{{ i18n.translate('dashboard.video.resultStatus') }}</dt>
+            <dd>{{ job.tavusStatus }}</dd>
+            @if (job.hostedUrl) {
+              <dt>{{ i18n.translate('dashboard.video.resultHostedUrl') }}</dt>
+              <dd>
+                <a [href]="job.hostedUrl" target="_blank" rel="noopener noreferrer">{{ job.hostedUrl }}</a>
+              </dd>
+            }
+          </dl>
+        </section>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

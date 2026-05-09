@@ -1,0 +1,24 @@
+@use '../login/login.scss';
+
+:host {
+  display: block;
+}
+
+.login-page__surface {
+  max-width: 34rem;
+}
+
+.signup-page__form {
+  .signup-page__checkbox {
+    margin-top: 0.35rem;
+    color: #334155;
+    font-size: 0.92rem;
+  }
+
+  .signup-page__checkbox-error {
+    margin: 0;
+    color: #b91c1c;
+    font-size: 0.82rem;
+    line-height: 1.3;
+  }
+}

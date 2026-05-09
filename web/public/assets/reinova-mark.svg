@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="reinova-mark-grad" x1="4" y1="6" x2="44" y2="42" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7dd3fc"/>
+      <stop offset="0.38" stop-color="#93c5fd"/>
+      <stop offset="0.55" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#c4b5fd"/>
+    </linearGradient>
+  </defs>
+  <!-- Jedna latica (prema gore), rotirana 4× oko centra — cvjetni / leptirasti mark -->
+  <g transform="translate(24 24)" fill="url(#reinova-mark-grad)">
+    <path
+      transform="rotate(0)"
+      d="M 0 4.5 C -12 -1 -14.5 -14 0 -20.5 C 14.5 -14 12 -1 0 4.5 Z"
+    />
+    <path
+      transform="rotate(90)"
+      d="M 0 4.5 C -12 -1 -14.5 -14 0 -20.5 C 14.5 -14 12 -1 0 4.5 Z"
+    />
+    <path
+      transform="rotate(180)"
+      d="M 0 4.5 C -12 -1 -14.5 -14 0 -20.5 C 14.5 -14 12 -1 0 4.5 Z"
+    />
+    <path
+      transform="rotate(270)"
+      d="M 0 4.5 C -12 -1 -14.5 -14 0 -20.5 C 14.5 -14 12 -1 0 4.5 Z"
+    />
+  </g>
+</svg>

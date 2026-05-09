@@ -1,0 +1,20 @@
+@import '../login/login.scss';
+
+.signup-check-email__lead {
+  margin: 0 0 0.75rem;
+  color: var(--login-color-muted);
+  line-height: 1.5;
+}
+
+.signup-check-email__email {
+  margin: 0 0 1rem;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.signup-check-email__hint {
+  margin: 0 0 1.25rem;
+  font-size: 0.9375rem;
+  color: var(--login-color-muted);
+  line-height: 1.5;
+}
